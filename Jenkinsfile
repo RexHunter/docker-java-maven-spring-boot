@@ -1,24 +1,23 @@
 pipeline { 
     def app
-    agent {
-        docker {
-                image 'maven' 
-                args '-v /root/.m2:/root/.m2' 
-        }
+    agent any
+    
+    stage('Clone repository') {
+        /* Let's make sure we have the repository cloned to our workspace */
+        checkout scm
     }
-    stages { 
-        stage('Build java') { 
+
+        /*stage('Build java') { 
            steps {
                 sh 'mvn package' 
             }
-           
-        }
-        stage('Build image') {
-            steps{
+            */
+            stage('Build image') {
+            
                 /* This builds the actual image; synonymous to
                  * docker build on the command line */
                     app = docker.build("rexxie/docker-java-maven-spring-boot")
-            }
+            
         }
     }
 }
