@@ -13,9 +13,11 @@ pipeline {
            
         }
         stage('Build image') {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
-            app = docker.build("rexxie/docker-java-maven-spring-boot")
+            steps{
+                /* This builds the actual image; synonymous to
+                 * docker build on the command line */
+                    app = docker.build("rexxie/docker-java-maven-spring-boot")
+            }
         }
     }
 }
