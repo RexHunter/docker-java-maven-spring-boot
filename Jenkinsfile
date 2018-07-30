@@ -19,5 +19,5 @@ pipeline {
                     app = docker.build("rexxie/docker-java-maven-spring-boot")
             
         }
-    }
+    
 }
