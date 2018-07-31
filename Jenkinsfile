@@ -1,22 +1,22 @@
-pipeline { 
-    def app
-    
-    stage('Clone repository') {
-        /* Let's make sure we have the repository cloned to our workspace */
-        checkout scm
-    }
+pipeline {  
+    stages {
+        stage('Clone repository') {
+            steps {
+                checkout scm
+            }
+        }
+      
 
-        /*stage('Build java') { 
+        stage('Build java') { 
            steps {
                 sh 'mvn package' 
             }
-            */
-            stage('Build image') {
-            
-                /* This builds the actual image; synonymous to
-                 * docker build on the command line */
-                    app = docker.build("rexxie/docker-java-maven-spring-boot")
-            
         }
-    
+            
+         stage('Build image') {
+            steps {   
+                docker.build("rexxie/docker-java-maven-spring-boot")
+            }
+        }
+    }
 }
