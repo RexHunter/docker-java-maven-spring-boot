@@ -18,11 +18,12 @@ pipeline {
                 sh 'mvn package' 
             }
         }
-            
+            /*
          stage('Build image') {
             steps {   
                 docker.build("rexxie/docker-java-maven-spring-boot")
             }
         }
+        */
     }
 }
