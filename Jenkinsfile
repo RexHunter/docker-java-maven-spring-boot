@@ -1,4 +1,4 @@
-node { 
+pipline { 
     def app
     
     stage('Clone repository') {
