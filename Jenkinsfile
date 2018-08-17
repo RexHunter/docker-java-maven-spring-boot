@@ -1,6 +1,5 @@
 node {
     def app
-    agent any
     
         stage('Clone repository') {
             checkout scm
@@ -8,5 +7,21 @@ node {
         stage('Build image') {
             app = docker.build("rexxie/docker-java-maven-spring-boot")
         }
+    stage('Test image') {
+        /* Ideally, we would run a test framework against our image.
+         * For this example, we're using a Volkswagen-type approach ;-) */
+
+        app.inside {
+            sh 'echo "Tests passed"'
+        }
+    }
+
+    stage('Push image') {
+        /* Finally, we'll push the image with two tags:
+         * First, the incremental build number from Jenkins
+         * Second, the 'latest' tag.
+         * Pushing multiple tags is cheap, as all the layers are reused. */
+        sh 'echo pushing'
+    }
     
 }
