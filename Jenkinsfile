@@ -1,29 +1,12 @@
-pipeline {  
-    agent {
-        docker {
-            image 'maven:3-alpine'
-            args '-v $HOME/.m2:/root/.m2'
-        }
-    }
+node {
+    def app
+    agent any
     stages {
         stage('Clone repository') {
-            steps {
-                checkout scm
-            }
+            checkout scm
         }
-      
-
-        stage('Build java') { 
-           steps {
-                sh 'mvn package' 
-            }
+        stage('Build image') {
+            app = docker.build("rexxie/docker-java-maven-spring-boot")
         }
-            /*
-         stage('Build image') {
-            steps {   
-                docker.build("rexxie/docker-java-maven-spring-boot")
-            }
-        }
-        */
     }
 }
